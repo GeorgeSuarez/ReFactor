@@ -16,10 +16,10 @@ const principles = [
 ];
 
 const team = [
-  { role: "// Product", name: "George Suarez" },
-  { role: "// Engineering", name: "George Suarez" },
-  { role: "// Design", name: "George Suarez" },
-  { role: "// Operations", name: "George Suarez" },
+  { role: "// Product", name: "Redux" },
+  { role: "// Engineering", name: "AspDotNet" },
+  { role: "// Design", name: "React" },
+  { role: "// Operations", name: "SQL" },
 ];
 
 export default function AboutPage() {
