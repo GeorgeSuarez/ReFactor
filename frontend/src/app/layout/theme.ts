@@ -131,13 +131,6 @@ export const theme = (darkMode: boolean) =>
             padding: "8px 16px",
             fontWeight: 500,
           },
-          containedPrimary: {
-            backgroundColor: darkMode ? darkPalette.merge : palette.merge,
-            color: "#FFFFFF",
-            "&:hover": {
-              backgroundColor: darkMode ? "#2EA043" : "#238636",
-            },
-          },
         },
       },
       MuiCssBaseline: {

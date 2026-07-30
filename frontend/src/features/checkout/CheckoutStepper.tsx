@@ -106,9 +106,10 @@ export default function CheckoutStepper() {
       if (!response.ok) throw new Error("Failed to create order");
       const order = await response.json();
 
-      const stripeInstance = stripe ?? window.Stripe(
-        import.meta.env.VITE_STRIPE_PK as string,
+      const stripeInstance = stripe ?? (window as any).Stripe(
+        import.meta.env.VITE_STRIPE_PK,
       );
+      if (!stripeInstance) throw new Error("Stripe failed to initialize");
       const result = await stripeInstance.confirmCardPayment(
         basket.clientSecret,
         { payment_method: stripePaymentMethodRef.current },

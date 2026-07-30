@@ -1,3 +1,4 @@
+import type { FetchBaseQueryError } from "@reduxjs/toolkit/query";
 import {
   type BaseQueryApi,
   type FetchArgs,
@@ -12,7 +13,7 @@ const customBaseQuery = fetchBaseQuery({
   credentials: "include",
 });
 
-type ErrorResponse = string | { title: string } | { errors: string[] };
+type ErrorData = { title?: string; errors?: Record<string, string[]> };
 
 const sleep = () => new Promise((resolve) => setTimeout(resolve, 1000));
 
@@ -29,34 +30,35 @@ export const baseQueryWithErrorHandling = async (
   if (result.error) {
     console.log(result.error);
 
-    const responseData = result.error.data;
+    const data = result.error.data as ErrorData | undefined;
 
-    if (!responseData || typeof responseData !== "object") return result;
+    if (!data || typeof data !== "object") return result;
 
-    const originalStatus =
-      result.error.status === "PARSING_ERROR" && result.error.originalStatus
-        ? result.error.originalStatus
-        : result.error.status;
+    const isParsingError =
+      (result.error as FetchBaseQueryError).status === "PARSING_ERROR";
+    const originalStatus = isParsingError
+      ? (result.error as FetchBaseQueryError & { originalStatus?: number }).originalStatus ?? 400
+      : (result.error as FetchBaseQueryError).status;
 
     switch (originalStatus) {
       case 400:
-        if (typeof responseData === "string") toast.error(responseData);
-        else if ("errors" in responseData) {
-          throw new Error(Object.values(responseData.errors).flat().join(", "));
-        } else toast.error(responseData.title);
+        if (typeof data === "string") toast.error(data);
+        else if (data.errors) {
+          throw new Error(Object.values(data.errors).flat().join(", "));
+        } else if (data.title) toast.error(data.title);
         break;
       case 401:
-        if ("title" in responseData) toast.error(responseData.title);
+        if (data.title) toast.error(data.title);
         break;
       case 403:
         toast.error("403 Forbidden");
         break;
       case 404:
-        if ("title" in responseData) getRouter()?.navigate("/not-found");
+        if (data.title) getRouter()?.navigate("/not-found");
         break;
       case 500:
         getRouter()?.navigate("/server-error", {
-          state: { error: responseData },
+          state: { error: data },
         });
         break;
       default:
