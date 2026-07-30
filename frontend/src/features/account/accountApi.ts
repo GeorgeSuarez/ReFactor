@@ -1,7 +1,7 @@
 import { createApi } from "@reduxjs/toolkit/query/react";
 import { baseQueryWithErrorHandling } from "../../app/api/baseApi";
 import { toast } from "react-toastify";
-import { router } from "../../app/routes/Routes";
+import { getRouter } from "../../app/lib/router";
 import type { LoginSchema } from "../../lib/schemas/loginSchema";
 import type { Address, User } from "../../app/models/user";
 
@@ -40,7 +40,7 @@ export const accountApi = createApi({
         try {
           await queryFulfilled;
           toast.success("Registration successful - you can now sign in!");
-          router.navigate("/login");
+          getRouter()?.navigate("/login");
         } catch (error) {
           console.log(error);
           throw error;
@@ -59,7 +59,7 @@ export const accountApi = createApi({
       async onQueryStarted(_, { dispatch, queryFulfilled }) {
         await queryFulfilled;
         dispatch(accountApi.util.invalidateTags(["UserInfo"]));
-        router.navigate("/");
+        getRouter()?.navigate("/");
       },
     }),
     fetchAddress: builder.query<Address, void>({

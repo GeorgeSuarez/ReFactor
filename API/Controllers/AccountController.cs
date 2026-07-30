@@ -4,6 +4,17 @@ namespace API.Controllers;
 
 public class AccountController(SignInManager<User> signInManager) : BaseApiController
 {
+    [HttpPost("dev-login")]
+    public async Task<ActionResult> DevLogin()
+    {
+        var user = await signInManager.UserManager.FindByEmailAsync("admin@test.com");
+        if (user == null) return Unauthorized();
+
+        await signInManager.SignInAsync(user, true);
+
+        return Ok(new { email = user.Email });
+    }
+
     [HttpPost("register")]
     public async Task<ActionResult> RegisterUser(RegisterDto registerDto)
     {

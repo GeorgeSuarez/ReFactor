@@ -7,6 +7,7 @@ import {
 import { useState, type ChangeEvent } from "react";
 import { useFetchProductDetailsQuery } from "./catalogApi";
 import {
+  Box,
   Button,
   Divider,
   Grid,
@@ -64,6 +65,31 @@ export default function ProductDetails() {
       spacing={6}
       sx={{ mx: "auto", maxWidth: (theme) => theme.breakpoints.values.lg }}
     >
+      <Grid size={6}>
+        <Box
+          sx={{
+            height: 400,
+            bgcolor: "action.hover",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            borderRadius: 2,
+            overflow: "hidden",
+            p: 4,
+          }}
+        >
+          <Box
+            component="img"
+            src={product.pictureUrl}
+            alt={product.name}
+            sx={{
+              width: "100%",
+              height: "100%",
+              objectFit: "contain",
+            }}
+          />
+        </Box>
+      </Grid>
       <Grid size={6}>
         <Typography variant="h3">{product.name}</Typography>
         <Divider sx={{ mb: 2 }} />

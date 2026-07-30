@@ -16,7 +16,7 @@ import {
 
 export default function CheckoutSuccess() {
   const { state } = useLocation();
-  const order = state.data as Order;
+  const order = (state?.data as Order) || JSON.parse(sessionStorage.getItem("checkoutOrder") || "null");
 
   if (!order) return <Typography>Problem accessing the order</Typography>;
 
