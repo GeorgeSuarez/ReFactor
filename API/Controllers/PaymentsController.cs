@@ -5,6 +5,24 @@ namespace API.Controllers;
 public class PaymentsController(PaymentsService paymentsSerivce, StoreContext context, IConfiguration config, ILogger<PaymentsController> logger) : BaseApiController
 {
     [Authorize]
+    [HttpPost("test-pm")]
+    public async Task<ActionResult> CreateTestPaymentMethod()
+    {
+        var client = new StripeClient(config["StripeSettings:SecretKey"]);
+        var pmOptions = new PaymentMethodCreateOptions
+        {
+            Type = "card",
+            Card = new PaymentMethodCardOptions
+            {
+                Token = "tok_visa",
+            },
+        };
+        var pmService = new PaymentMethodService(client);
+        var pm = await pmService.CreateAsync(pmOptions);
+        return Ok(new { id = pm.Id });
+    }
+
+    [Authorize]
     [HttpPost]
     public async Task<ActionResult<BasketDto>> CreateOrUpdatePaymentIntent()
     {

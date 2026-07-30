@@ -1,0 +1,33 @@
+import { z } from "zod";
+
+const fileSchema = z
+  .instanceof(File)
+  .refine((file) => file.size > 0, {
+    error: "A file must be uploaded",
+  })
+  .transform((file) => ({
+    ...file,
+    preview: URL.createObjectURL(file),
+  }));
+
+export const createProductSchema = z
+  .object({
+    name: z.string({ error: "Name of product is required" }),
+    description: z.string({ error: "Description is required" }).min(10, {}),
+    price: z.coerce
+      .number({ error: "Price is required" })
+      .min(100, "Price must be at least $1.00"),
+    type: z.string({ error: "Type is required" }),
+    brand: z.string({ error: "Brand is required" }),
+    quantityInStock: z.coerce
+      .number({ error: "Quantity is required" })
+      .min(1, "Quantity must be at least 1"),
+    pictureUrl: z.string().optional(),
+    file: fileSchema.optional(),
+  })
+  .refine((data) => data.pictureUrl || data.file, {
+    error: "Please provide an image",
+    path: ["file"],
+  });
+
+export type CreateProductSchema = z.infer<typeof createProductSchema>;

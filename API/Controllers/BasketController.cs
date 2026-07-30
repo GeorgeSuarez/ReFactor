@@ -9,7 +9,7 @@ public class BasketController(StoreContext context, DiscountService couponServic
     {
         var basket = await RetrieveBasket();
 
-        if (basket == null) return NotFound();
+        if (basket == null) return NoContent();
 
         return basket.ToDto();
     }

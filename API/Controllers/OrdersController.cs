@@ -1,6 +1,7 @@
 namespace API.Controllers;
 
 [Authorize]
+[Route("api/orders")]
 public class OrderController(StoreContext context, DiscountService discountService) : BaseApiController
 {
 
