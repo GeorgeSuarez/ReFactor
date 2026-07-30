@@ -1,4 +1,10 @@
-﻿var builder = WebApplication.CreateBuilder(args);
+﻿var envPath = Path.Combine(Directory.GetCurrentDirectory(), ".env");
+if (File.Exists(envPath))
+{
+    DotNetEnv.Env.Load(envPath);
+}
+
+var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container
 builder.Services.Configure<CloudinarySettings>(builder.Configuration.GetSection("Cloudinary"));

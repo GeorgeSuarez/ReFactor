@@ -42,12 +42,27 @@ public class PaymentsService
         }
         else
         {
-            var options = new PaymentIntentUpdateOptions
+            try
             {
-                Amount = totalAmount
-            };
+                var options = new PaymentIntentUpdateOptions
+                {
+                    Amount = totalAmount
+                };
+                intent = await _paymentIntentService.UpdateAsync(basket.PaymentIntentId, options);
+            }
+            catch (StripeException ex) when (ex.StripeError?.Code == "payment_intent_unexpected_state")
+            {
+                basket.PaymentIntentId = null;
+                basket.ClientSecret = null;
 
-            await _paymentIntentService.UpdateAsync(basket.PaymentIntentId, options);
+                var options = new PaymentIntentCreateOptions
+                {
+                    Amount = totalAmount,
+                    Currency = "usd",
+                    PaymentMethodTypes = ["card"]
+                };
+                intent = await _paymentIntentService.CreateAsync(options);
+            }
         }
 
         return intent;
