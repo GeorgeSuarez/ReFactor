@@ -16,31 +16,41 @@ const principles = [
 ];
 
 const team = [
-  { role: "// Product", name: "Alex Chen" },
-  { role: "// Engineering", name: "Morgan Lee" },
-  { role: "// Design", name: "Sam Rivera" },
-  { role: "// Operations", name: "Jordan Taylor" },
+  { role: "// Product", name: "George Suarez" },
+  { role: "// Engineering", name: "George Suarez" },
+  { role: "// Design", name: "George Suarez" },
+  { role: "// Operations", name: "George Suarez" },
 ];
 
 export default function AboutPage() {
   return (
     <Container maxWidth="md" sx={{ px: 2 }}>
       <Box sx={{ mb: 6 }}>
-        <Typography variant="caption" sx={{ color: "primary.main", mb: 1, display: "block" }}>
+        <Typography
+          variant="caption"
+          sx={{ color: "primary.main", mb: 1, display: "block" }}
+        >
           // about
         </Typography>
         <Typography variant="h1" sx={{ mb: 2 }}>
           What is ReFactor?
         </Typography>
-        <Typography variant="body1" sx={{ color: "text.secondary", mb: 3, maxWidth: 640 }}>
-          ReFactor is a developer essentials store. We take everyday gear — boards, boots, gloves,
-          hats — and refactor them with the sensibilities of the people who build the web.
-          Every product is a merge of utility and the culture of software.
+        <Typography
+          variant="body1"
+          sx={{ color: "text.secondary", mb: 3, maxWidth: 640 }}
+        >
+          ReFactor is a developer essentials store. We take everyday gear —
+          boards, boots, gloves, hats — and refactor them with the sensibilities
+          of the people who build the web. Every product is a merge of utility
+          and the culture of software.
         </Typography>
       </Box>
 
       <Box sx={{ mb: 6 }}>
-        <Typography variant="caption" sx={{ color: "primary.main", mb: 2, display: "block" }}>
+        <Typography
+          variant="caption"
+          sx={{ color: "primary.main", mb: 2, display: "block" }}
+        >
           // how we think
         </Typography>
         <Box sx={{ display: "flex", flexDirection: "column", gap: 2 }}>
@@ -48,11 +58,18 @@ export default function AboutPage() {
             <Paper key={p.title} variant="outlined" sx={{ p: 3 }}>
               <Typography
                 variant="h4"
-                sx={{ fontSize: "1rem", mb: 1, fontFamily: '"DM Mono", monospace' }}
+                sx={{
+                  fontSize: "1rem",
+                  mb: 1,
+                  fontFamily: '"DM Mono", monospace',
+                }}
               >
                 {p.title}
               </Typography>
-              <Typography variant="body2" sx={{ color: "text.secondary", lineHeight: 1.7 }}>
+              <Typography
+                variant="body2"
+                sx={{ color: "text.secondary", lineHeight: 1.7 }}
+              >
                 {p.desc}
               </Typography>
             </Paper>
@@ -61,7 +78,10 @@ export default function AboutPage() {
       </Box>
 
       <Box sx={{ mb: 6 }}>
-        <Typography variant="caption" sx={{ color: "primary.main", mb: 2, display: "block" }}>
+        <Typography
+          variant="caption"
+          sx={{ color: "primary.main", mb: 2, display: "block" }}
+        >
           // team
         </Typography>
         <Box sx={{ display: "flex", flexDirection: "column", gap: 1 }}>
@@ -76,11 +96,21 @@ export default function AboutPage() {
               }}
             >
               <Typography
-                sx={{ color: "text.muted", minWidth: 120, fontFamily: '"DM Mono", monospace', fontSize: "0.875rem" }}
+                sx={{
+                  color: "text.muted",
+                  minWidth: 120,
+                  fontFamily: '"DM Mono", monospace',
+                  fontSize: "0.875rem",
+                }}
               >
                 {m.role}
               </Typography>
-              <Typography sx={{ fontFamily: '"DM Mono", monospace', fontSize: "0.875rem" }}>
+              <Typography
+                sx={{
+                  fontFamily: '"DM Mono", monospace',
+                  fontSize: "0.875rem",
+                }}
+              >
                 {m.name}
               </Typography>
             </Box>
