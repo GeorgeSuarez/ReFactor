@@ -54,10 +54,10 @@ export default function HomePage() {
             </Typography>
             <Box sx={{ mb: 3 }}>
               {[
-                { label: "type", value: featured.type },
-                { label: "framework", value: featured.framework },
+                { label: "type: ", value: featured.type },
+                { label: "framework: ", value: featured.framework },
                 {
-                  label: "price",
+                  label: "price: ",
                   value: `$${(featured.price / 100).toFixed(2)}`,
                 },
               ].map(({ label, value }) => (
@@ -72,7 +72,11 @@ export default function HomePage() {
                 >
                   <Box
                     component="span"
-                    sx={{ color: "text.muted", width: 80, display: "inline-block" }}
+                    sx={{
+                      color: "text.muted",
+                      width: 80,
+                      display: "contents",
+                    }}
                   >
                     // {label}
                   </Box>
